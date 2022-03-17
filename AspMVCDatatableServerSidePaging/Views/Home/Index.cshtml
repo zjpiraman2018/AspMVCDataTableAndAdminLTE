@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Part 2: JQuery DataTable Server Side Pagination and Sorting in Asp.Net MVC</h2>
+<div style="width:90%; margin:0 auto;">
+    <table id="myTable" class="table table-striped table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Company</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Postal Code</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<link href="@Url.Content("/Content/jquery.dataTables.min.css")" rel="stylesheet" />
+@section Scripts{
+    <script type="text/javascript" src="@Url.Content("/Scripts/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/dataTables.bootstrap4.min.js")"></script>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $("#myTable").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false,
+                "ajax": {
+                    "url": "/Home/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "ContactName", "name": "ContactName", "autoWidth": true },
+                    { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+                    { "data": "Phone", "name": "Phone", "autoWidth": true },
+                    { "data": "Country", "name": "Country", "autoWidth": true },
+                    { "data": "City", "name": "City", "autoWidth": true },
+                    { "data": "PostalCode", "name": "PostalCode", "autoWidth": true },
+                ]
+            });
+        });
+    </script>
+}
