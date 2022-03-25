@@ -1,6 +1,12 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+
+    var request = HttpContext.Current.Request;
+    var apiUrl = string.Concat((request.RawUrl == "/" ? "" : request.RawUrl), "/api/Customer/LoadData");
+
 }
+
+<input id="apiUrl" hidden value="@apiUrl" />
 
 <div class="card">
     <div class="card-header">
@@ -27,26 +33,26 @@
 </div>
 
 <!-- DataTables -->
-<link href="@Url.Content("/FrontEnd/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")" rel="stylesheet" />
-<link href="@Url.Content("/FrontEnd/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")" rel="stylesheet" />
-<link href="@Url.Content("/FrontEnd/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")" rel="stylesheet" />
+<link href="~/FrontEnd/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/FrontEnd/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/FrontEnd/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" rel="stylesheet" />
 
 
 @section Scripts{
 
     <!-- DataTables  & Plugins -->
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/datatables/jquery.dataTables.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/datatables-responsive/js/dataTables.responsive.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/datatables-responsive/js/responsive.bootstrap4.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/datatables-buttons/js/dataTables.buttons.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/jszip/jszip.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/pdfmake/pdfmake.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/pdfmake/vfs_fonts.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/datatables-buttons/js/buttons.html5.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/datatables-buttons/js/buttons.print.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("/FrontEnd/plugins/datatables-buttons/js/buttons.colVis.min.js")"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/jszip/jszip.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/pdfmake/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/pdfmake/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="~/FrontEnd/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -56,7 +62,8 @@
                 "filter": true, // this is for disable filter (search box)
                 "orderMulti": false,
                 "ajax": {
-                    "url": "/Home/LoadData",
+                    //"url": "/api/Customer/LoadData",
+                    "url": $("#apiUrl").val(),
                     "type": "POST",
                     "datatype": "json"
                 },
